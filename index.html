@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beneath the Lie - by Aman Fatima</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
     <style>
         /* ===== RESET ===== */
         * {
@@ -14,615 +14,402 @@
         }
 
         body {
-            font-family: 'Cormorant Garamond', 'Georgia', serif;
-            background: #0a0807;
-            color: #d4c5a9;
+            font-family: 'Inter', sans-serif;
+            background: #0d0b0a;
+            color: #e5dcd3;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 24px;
             background-image:
-                radial-gradient(ellipse at 20% 30%, rgba(60, 30, 40, 0.3) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 70%, rgba(30, 40, 60, 0.3) 0%, transparent 60%),
-                radial-gradient(ellipse at 50% 50%, rgba(40, 20, 30, 0.1) 0%, transparent 70%);
-            position: relative;
+                radial-gradient(circle at 20% 30%, rgba(255, 180, 200, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(180, 200, 255, 0.04) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.005) 0px, rgba(255, 255, 255, 0.005) 2px, transparent 2px, transparent 6px);
+            backdrop-filter: blur(0.5px);
         }
 
-        /* ===== ANIMATED STARS ===== */
-        #stars {
+        /* ===== SOFT GLOW ORBS ===== */
+        .orb {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .star {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.4);
             border-radius: 50%;
-            animation: twinkle linear infinite;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
         }
-        @keyframes twinkle {
-            0%,
-            100% {
-                opacity: 0.2;
-                transform: scale(0.8);
-            }
-            50% {
-                opacity: 0.8;
-                transform: scale(1.2);
-            }
+        .orb1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 140, 180, 0.08);
+            top: -80px;
+            left: -80px;
+        }
+        .orb2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(140, 180, 255, 0.06);
+            bottom: -100px;
+            right: -100px;
+        }
+        .orb3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 220, 160, 0.05);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        /* ===== FLOATING PARTICLES ===== */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* ===== GLASS CARD ===== */
+        .glass {
+            max-width: 920px;
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .particle {
-            position: absolute;
-            background: rgba(200, 180, 160, 0.05);
-            border-radius: 50%;
-            animation: floatParticle linear infinite;
-        }
-        @keyframes floatParticle {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1);
-                opacity: 0;
-            }
-        }
-
-        /* ===== GLASS CONTAINER ===== */
-        .container {
-            max-width: 950px;
-            width: 100%;
-            background: rgba(12, 10, 8, 0.7);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(180, 140, 100, 0.08);
-            border-radius: 24px;
-            padding: 50px 60px;
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.9),
-                inset 0 1px 0 rgba(255, 255, 255, 0.02),
-                0 0 60px rgba(80, 40, 20, 0.03);
+            background: rgba(20, 17, 16, 0.55);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 48px;
+            padding: 44px 48px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
             position: relative;
-            z-index: 1;
+            z-index: 2;
             transition: all 0.3s ease;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 15%;
-            right: 15%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(180, 140, 100, 0.2), rgba(220, 192, 154, 0.4), rgba(180, 140, 100, 0.2), transparent);
-            border-radius: 50%;
-        }
-
-        .container::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 25%;
-            right: 25%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(180, 140, 100, 0.05), transparent);
         }
 
         /* ===== HEADER ===== */
         .header {
             text-align: center;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(180, 140, 100, 0.05);
-            margin-bottom: 35px;
-            position: relative;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 32px;
         }
 
-        .header::after {
-            content: '✦ ✦ ✦';
-            position: absolute;
-            bottom: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(180, 140, 100, 0.15);
-            font-size: 0.7rem;
-            letter-spacing: 15px;
-            background: #0a0807;
-            padding: 0 20px;
-        }
-
-        .book-icon {
-            font-size: 52px;
-            margin-bottom: 10px;
+        .header .icon {
+            font-size: 28px;
+            letter-spacing: 10px;
+            opacity: 0.25;
             display: block;
-            opacity: 0.3;
-            letter-spacing: 15px;
-            animation: glowPulse 4s ease-in-out infinite;
+            margin-bottom: 4px;
         }
 
-        @keyframes glowPulse {
-            0%,
-            100% {
-                opacity: 0.3;
-            }
-            50% {
-                opacity: 0.6;
-            }
-        }
-
-        .title {
-            font-size: 4.2rem;
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.6rem;
             font-weight: 700;
-            letter-spacing: 8px;
-            background: linear-gradient(180deg, #f2e4d0 20%, #bfa385 70%);
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #f0e3d4 20%, #c7b09b 70%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-family: 'Playfair Display', 'Georgia', serif;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 40px rgba(180, 140, 100, 0.05);
         }
 
-        .subtitle {
-            color: rgba(122, 106, 90, 0.4);
-            font-size: 0.85rem;
-            letter-spacing: 12px;
+        .header .tag {
+            font-size: 0.7rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            font-weight: 300;
-            font-family: 'Arial', sans-serif;
+            color: rgba(255, 255, 255, 0.15);
+            margin-top: 4px;
         }
 
-        .author {
-            font-size: 1.6rem;
-            margin-top: 16px;
-            letter-spacing: 5px;
-            color: rgba(220, 192, 154, 0.5);
-            font-weight: 400;
+        .header .author {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
             font-style: italic;
-            font-family: 'Playfair Display', 'Georgia', serif;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 12px;
         }
-
-        .author span {
-            color: #f2e4d0;
+        .header .author span {
+            color: #e5dcd3;
             font-style: normal;
-            font-weight: 700;
-            letter-spacing: 8px;
-            text-shadow: 0 0 50px rgba(200, 170, 130, 0.05);
-            position: relative;
+            font-weight: 600;
+            letter-spacing: 4px;
         }
 
-        .author span::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(200, 170, 130, 0.15), transparent);
-        }
-
-        /* ===== TABLE OF CONTENTS ===== */
+        /* ===== TOC ===== */
         .toc {
-            background: rgba(30, 25, 20, 0.25);
-            border-radius: 16px;
-            padding: 28px 32px;
-            margin: 25px 0 35px 0;
-            border-left: 3px solid rgba(180, 140, 100, 0.15);
-            transition: all 0.4s ease;
-        }
-
-        .toc:hover {
-            border-left-color: rgba(200, 170, 130, 0.3);
-            background: rgba(30, 25, 20, 0.35);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 32px;
+            padding: 24px 28px;
+            margin: 24px 0 32px 0;
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         .toc h2 {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            letter-spacing: 8px;
-            color: rgba(168, 136, 106, 0.4);
-            margin-bottom: 18px;
+            color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 16px;
             font-weight: 400;
-            font-family: 'Arial', sans-serif;
         }
 
         .toc-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 4px 25px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2px 16px;
         }
 
         .toc-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 8px 0;
+            gap: 10px;
+            padding: 6px 0;
             cursor: pointer;
-            color: rgba(184, 168, 152, 0.5);
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(180, 140, 100, 0.02);
-            font-size: 0.95rem;
-            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            color: rgba(255, 255, 255, 0.25);
+            transition: 0.25s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+            font-size: 0.9rem;
         }
 
         .toc-item:hover {
-            color: #f2e4d0;
-            padding-left: 12px;
-            border-bottom-color: rgba(180, 140, 100, 0.06);
+            color: #fff;
+            padding-left: 8px;
+            border-bottom-color: rgba(255, 255, 255, 0.05);
         }
 
-        .toc-item .ch-num {
-            color: rgba(106, 90, 74, 0.3);
-            font-size: 0.7rem;
-            font-weight: bold;
-            min-width: 38px;
-            font-family: 'Arial', sans-serif;
+        .toc-item .num {
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 0.65rem;
+            font-weight: 600;
+            min-width: 32px;
+            font-family: 'Inter', sans-serif;
         }
 
-        .toc-item .ch-title {
-            font-style: italic;
+        .toc-item .title {
+            font-weight: 300;
         }
 
         /* ===== CHAPTER DISPLAY ===== */
-        .chapter-display {
-            padding: 15px 0;
+        .chapter-box {
             text-align: center;
-            animation: fadeUp 0.5s ease;
+            padding: 28px 0 8px;
+            animation: fadeUp 0.4s ease;
         }
 
         @keyframes fadeUp {
-            from {
+            0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(12px);
             }
-            to {
+            100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .chapter-display .icon {
-            font-size: 56px;
-            margin-bottom: 12px;
-            opacity: 0.2;
-        }
-
-        .chapter-display h2 {
-            font-size: 2.2rem;
-            color: #f2e4d0;
-            font-weight: 400;
-            font-family: 'Playfair Display', 'Georgia', serif;
-            letter-spacing: 2px;
+        .chapter-box .big-icon {
+            font-size: 44px;
+            opacity: 0.15;
             margin-bottom: 8px;
+            display: block;
         }
 
-        .chapter-display .ch-desc {
-            color: rgba(184, 168, 152, 0.35);
-            font-size: 0.95rem;
-            font-style: italic;
+        .chapter-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: #f0e3d4;
+            letter-spacing: 1px;
         }
 
-        .pdf-download-btn {
+        .chapter-box .sub {
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .pdf-btn {
             display: inline-block;
             margin-top: 18px;
-            background: rgba(168, 136, 106, 0.06);
-            border: 1px solid rgba(180, 140, 100, 0.1);
-            color: #dcc09a;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: #d4c5b5;
             padding: 12px 36px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-family: 'Arial', sans-serif;
-            text-decoration: none;
-            transition: all 0.4s ease;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 400;
             letter-spacing: 2px;
+            text-decoration: none;
+            transition: 0.3s ease;
+            backdrop-filter: blur(4px);
         }
 
-        .pdf-download-btn:hover {
-            background: rgba(168, 136, 106, 0.12);
-            border-color: rgba(200, 170, 130, 0.2);
-            color: #f2e4d0;
+        .pdf-btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            color: #fff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(168, 136, 106, 0.04);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* ===== NAVIGATION ===== */
-        .nav-bar {
+        /* ===== NAV ===== */
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 40px;
-            padding-top: 28px;
-            border-top: 1px solid rgba(180, 140, 100, 0.04);
-            gap: 15px;
+            margin-top: 36px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
             flex-wrap: wrap;
+            gap: 12px;
         }
 
         .nav-btn {
-            background: rgba(60, 50, 40, 0.15);
-            border: 1px solid rgba(180, 140, 100, 0.06);
-            color: rgba(184, 168, 152, 0.5);
-            padding: 14px 34px;
-            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.2);
+            padding: 12px 28px;
+            border-radius: 60px;
             cursor: pointer;
-            font-size: 0.75rem;
-            font-family: 'Arial', sans-serif;
-            transition: all 0.4s ease;
+            font-size: 0.7rem;
+            font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-weight: 300;
-            min-width: 150px;
-            text-align: center;
+            transition: 0.3s ease;
+            min-width: 120px;
         }
 
         .nav-btn:hover:not(:disabled) {
-            background: rgba(168, 136, 106, 0.06);
-            border-color: rgba(180, 140, 100, 0.12);
-            color: #f2e4d0;
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.04);
+            color: #fff;
         }
 
         .nav-btn:disabled {
-            opacity: 0.15;
+            opacity: 0.1;
             cursor: not-allowed;
-            transform: none !important;
         }
 
-        .chapter-indicator {
-            color: rgba(106, 90, 74, 0.3);
-            font-size: 0.8rem;
-            font-family: 'Arial', sans-serif;
-            letter-spacing: 4px;
+        .indicator {
+            color: rgba(255, 255, 255, 0.08);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
         }
 
-        /* ===== PROGRESS BAR ===== */
-        .progress-bar {
+        /* ===== PROGRESS ===== */
+        .progress {
             width: 100%;
             height: 2px;
-            background: rgba(60, 50, 40, 0.15);
-            margin-top: 22px;
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.02);
+            margin-top: 20px;
+            border-radius: 10px;
             overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(180, 140, 100, 0.03), transparent);
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, rgba(168, 136, 106, 0.2), rgba(220, 192, 154, 0.4));
             width: 5%;
-            transition: width 0.8s ease;
-            border-radius: 4px;
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            right: -3px;
-            top: -2px;
-            width: 6px;
-            height: 6px;
-            background: rgba(220, 192, 154, 0.3);
-            border-radius: 50%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.15));
+            transition: width 0.6s ease;
         }
 
         /* ===== FOOTER ===== */
         .footer {
             text-align: center;
-            margin-top: 35px;
-            color: rgba(74, 63, 53, 0.25);
-            font-size: 0.6rem;
-            letter-spacing: 5px;
-            font-family: 'Arial', sans-serif;
-            border-top: 1px solid rgba(180, 140, 100, 0.02);
-            padding-top: 28px;
-        }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 4px;
-            background: #0a0807;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(60, 50, 40, 0.3);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(90, 74, 58, 0.4);
+            margin-top: 32px;
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.04);
+            border-top: 1px solid rgba(255, 255, 255, 0.01);
+            padding-top: 24px;
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 820px) {
-            .container {
-                padding: 35px 30px;
-                border-radius: 18px;
+        @media (max-width: 700px) {
+            .glass {
+                padding: 28px 20px;
+                border-radius: 32px;
             }
-            .title {
-                font-size: 3.2rem;
-                letter-spacing: 5px;
+            .header h1 {
+                font-size: 2.6rem;
             }
-            .author {
-                font-size: 1.3rem;
-            }
-            .chapter-display h2 {
-                font-size: 1.8rem;
+            .chapter-box h2 {
+                font-size: 1.5rem;
             }
             .toc-grid {
                 grid-template-columns: 1fr;
             }
             .nav-btn {
-                padding: 12px 24px;
-                font-size: 0.7rem;
-                min-width: 120px;
+                padding: 10px 18px;
+                min-width: 90px;
+                font-size: 0.6rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px 16px;
-                border-radius: 14px;
+        @media (max-width: 450px) {
+            .glass {
+                padding: 18px 14px;
+                border-radius: 24px;
             }
-            .title {
-                font-size: 2.2rem;
-                letter-spacing: 3px;
+            .header h1 {
+                font-size: 2rem;
             }
-            .subtitle {
-                font-size: 0.65rem;
-                letter-spacing: 6px;
+            .header .author {
+                font-size: 1rem;
             }
-            .author {
-                font-size: 1.1rem;
-                letter-spacing: 3px;
+            .chapter-box h2 {
+                font-size: 1.2rem;
             }
-            .author span {
-                letter-spacing: 4px;
-            }
-            .chapter-display h2 {
-                font-size: 1.4rem;
-            }
-            .chapter-display .icon {
-                font-size: 40px;
-            }
-            .pdf-download-btn {
+            .pdf-btn {
                 padding: 10px 24px;
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
-            .nav-bar {
+            .nav {
                 flex-direction: column;
-                gap: 12px;
             }
             .nav-btn {
                 width: 100%;
-                padding: 12px;
-            }
-            .toc {
-                padding: 18px 16px;
-            }
-            .toc h2 {
-                font-size: 0.7rem;
-                letter-spacing: 5px;
-            }
-            .header::after {
-                font-size: 0.5rem;
-                letter-spacing: 10px;
-                padding: 0 12px;
-            }
-            .book-icon {
-                font-size: 36px;
-                letter-spacing: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== STARS ===== -->
-    <div id="stars"></div>
-    <div id="particles"></div>
+    <!-- ===== ORBS ===== -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
 
-    <div class="container">
+    <div class="glass">
 
         <!-- ===== HEADER ===== -->
         <div class="header">
-            <span class="book-icon">✦ ✦ ✦</span>
-            <h1 class="title">Beneath the Lie</h1>
-            <div class="subtitle">A Mystery Novel</div>
+            <span class="icon">✦ ✦ ✦</span>
+            <h1>Beneath the Lie</h1>
+            <div class="tag">A Mystery Novel</div>
             <div class="author">by <span>AMAN FATIMA</span></div>
         </div>
 
-        <!-- ===== TABLE OF CONTENTS ===== -->
+        <!-- ===== TOC ===== -->
         <div class="toc">
-            <h2>📖 Table of Contents</h2>
+            <h2>📖 Contents</h2>
             <div class="toc-grid" id="tocList"></div>
         </div>
 
-        <!-- ===== CHAPTER DISPLAY ===== -->
-        <div class="chapter-display" id="chapterDisplay">
-            <div class="icon">📖</div>
+        <!-- ===== CHAPTER ===== -->
+        <div class="chapter-box" id="chapterBox">
+            <span class="big-icon">📖</span>
             <h2 id="chapterTitle">Chapter 1</h2>
-            <p class="ch-desc" id="chapterDesc">Click below to read this chapter</p>
-            <a href="#" class="pdf-download-btn" id="pdfDownloadBtn" target="_blank">📥 Download PDF</a>
+            <div class="sub" id="chapterDesc">Click below to read</div>
+            <a href="#" class="pdf-btn" id="pdfDownloadBtn" target="_blank">📥 Download PDF</a>
         </div>
 
-        <!-- ===== NAVIGATION ===== -->
-        <div class="nav-bar">
-            <button class="nav-btn" id="prevBtn" disabled><span id="prevText">← Previous</span></button>
-            <span class="chapter-indicator" id="chapterIndicator">1 / 20</span>
-            <button class="nav-btn" id="nextBtn"><span id="nextText">Next →</span></button>
+        <!-- ===== NAV ===== -->
+        <div class="nav">
+            <button class="nav-btn" id="prevBtn" disabled>← Back</button>
+            <span class="indicator" id="chapterIndicator">1 / 20</span>
+            <button class="nav-btn" id="nextBtn">Next →</button>
         </div>
 
-        <div class="progress-bar">
+        <div class="progress">
             <div class="progress-fill" id="progressFill"></div>
         </div>
 
-        <div class="footer">Beneath the Lie • Aman Fatima • All rights reserved</div>
+        <div class="footer">Beneath the Lie • Aman Fatima</div>
     </div>
 
     <script>
         // ================================================================
-        //  STARS
-        // ================================================================
-        (function() {
-            const s = document.getElementById('stars');
-            for (let i = 0; i < 80; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 2 + 0.5;
-                star.style.cssText =
-                    `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${Math.random()*4+2}s;animation-delay:${Math.random()*3}s`;
-                s.appendChild(star);
-            }
-        })();
-
-        // ================================================================
-        //  PARTICLES
-        // ================================================================
-        (function() {
-            const c = document.getElementById('particles');
-            for (let i = 0; i < 30; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                const s = Math.random() * 3 + 1;
-                p.style.cssText =
-                    `width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*18+12}s;animation-delay:${Math.random()*15}s`;
-                c.appendChild(p);
-            }
-        })();
-
-        // ================================================================
-        //  🔴 YAHAN APNE PDF RAW LINKS DAALEIN 🔴
+        //  🔴 APNE PDF LINKS YAHAN DAALEIN 🔴
         // ================================================================
 
         const pdfLinks = {
@@ -649,7 +436,7 @@
         };
 
         // ================================================================
-        //  CHAPTER TITLES
+        //  TITLES
         // ================================================================
 
         const titles = [
@@ -681,35 +468,37 @@
 
         let current = 0;
 
-        function buildTOC() {
-            const list = document.getElementById('tocList');
-            list.innerHTML = '';
-            for (let i = 0; i < 20; i++) {
+        function renderTOC() {
+            const container = document.getElementById('tocList');
+            container.innerHTML = '';
+            titles.forEach((t, i) => {
                 const div = document.createElement('div');
                 div.className = 'toc-item';
-                div.innerHTML = `<span class="ch-num">Ch. ${i+1}</span> <span class="ch-title">${titles[i]}</span>`;
-                div.onclick = () => goTo(i);
-                list.appendChild(div);
-            }
+                div.innerHTML = `<span class="num">Ch.${i+1}</span><span class="title">${t}</span>`;
+                div.addEventListener('click', () => goTo(i));
+                container.appendChild(div);
+            });
         }
 
         function goTo(index) {
             if (index < 0 || index >= 20) return;
             current = index;
             const num = index + 1;
-            document.getElementById('chapterTitle').textContent = `Chapter ${num}: ${titles[index]}`;
+
+            document.getElementById('chapterTitle').innerText = `Chapter ${num}: ${titles[index]}`;
             document.getElementById('pdfDownloadBtn').href = pdfLinks[num] || '#';
-            document.getElementById('chapterIndicator').textContent = `${num} / 20`;
-            document.getElementById('prevBtn').disabled = (index === 0);
-            document.getElementById('nextBtn').disabled = (index === 19);
-            document.getElementById('progressFill').style.width = ((num) / 20 * 100) + '%';
-            document.querySelector('.chapter-display').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('chapterIndicator').innerText = `${num} / 20`;
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === 19;
+            document.getElementById('progressFill').style.width = `${(num / 20) * 100}%`;
+
+            document.getElementById('chapterBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        document.getElementById('prevBtn').onclick = () => goTo(current - 1);
-        document.getElementById('nextBtn').onclick = () => goTo(current + 1);
+        document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+        document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
 
-        buildTOC();
+        renderTOC();
         goTo(0);
     </script>
 

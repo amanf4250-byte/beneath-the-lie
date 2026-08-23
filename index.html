@@ -5,11 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beneath the Lie - by Aman Fatima</title>
 
-    <!-- Urdu Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== RESET ===== */
+        /* ============================================================
+           ANIMATED BACKGROUND - PARTICLES
+           ============================================================ */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(200, 180, 160, 0.15);
+            border-radius: 50%;
+            animation: float linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -17,8 +58,8 @@
         }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: #0b0807;
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            background: #0a0807;
             color: #d4c5a9;
             min-height: 100vh;
             display: flex;
@@ -26,14 +67,33 @@
             align-items: center;
             padding: 20px;
             background-image:
-                radial-gradient(ellipse at 20% 50%, rgba(50, 20, 30, 0.3) 0%, transparent 70%),
-                radial-gradient(ellipse at 80% 50%, rgba(20, 30, 50, 0.3) 0%, transparent 70%);
+                radial-gradient(ellipse at 30% 40%, rgba(60, 30, 40, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(30, 40, 60, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 80%, rgba(40, 20, 30, 0.15) 0%, transparent 50%);
+            position: relative;
             transition: all 0.4s ease;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.003) 2px,
+                    rgba(255, 255, 255, 0.003) 4px);
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* ===== URDU MODE ===== */
         body.urdu {
-            font-family: 'Noto Nastaliq Urdu', 'Georgia', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Cormorant Garamond', serif;
             direction: rtl;
             text-align: right;
         }
@@ -64,7 +124,7 @@
         }
 
         body.urdu .title {
-            font-family: 'Noto Nastaliq Urdu', 'Georgia', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
             letter-spacing: 2px;
         }
 
@@ -74,17 +134,17 @@
         }
 
         body.urdu .author {
-            font-family: 'Noto Nastaliq Urdu', 'Georgia', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
             font-style: normal;
         }
 
         body.urdu .toc {
             border-left: none;
-            border-right: 3px solid #a8886a;
+            border-right: 3px solid rgba(180, 140, 100, 0.3);
         }
 
         body.urdu .toc:hover {
-            border-right-color: #dcc09a;
+            border-right-color: rgba(200, 170, 130, 0.5);
         }
 
         body.urdu .toc h2 {
@@ -106,12 +166,12 @@
         }
 
         body.urdu .chapter-title {
-            font-family: 'Noto Nastaliq Urdu', 'Georgia', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
         }
 
         body.urdu .chapter-content {
             font-size: 1.2rem;
-            line-height: 2.2;
+            line-height: 2.3;
         }
 
         body.urdu .chapter-content p {
@@ -132,172 +192,276 @@
             letter-spacing: 1px;
         }
 
-        /* ===== CONTAINER ===== */
+        body.urdu .lang-btn {
+            font-family: 'Noto Nastaliq Urdu', 'Arial', sans-serif;
+        }
+
+        /* ============================================================
+           GLASS CONTAINER
+           ============================================================ */
         .container {
-            max-width: 880px;
+            max-width: 900px;
             width: 100%;
-            background: rgba(15, 12, 10, 0.94);
-            border: 1px solid rgba(180, 140, 100, 0.12);
-            border-radius: 14px;
-            padding: 45px 55px;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
+            background: rgba(15, 12, 10, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(180, 140, 100, 0.08);
+            border-radius: 20px;
+            padding: 50px 60px;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.02);
             position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
         }
 
         .container::before {
             content: '';
             position: absolute;
             top: -1px;
-            left: 15%;
-            right: 15%;
+            left: 10%;
+            right: 10%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #a8886a, #dcc09a, #a8886a, transparent);
+            background: linear-gradient(90deg, transparent, rgba(180, 140, 100, 0.3), rgba(200, 170, 130, 0.5), rgba(180, 140, 100, 0.3), transparent);
+            border-radius: 50%;
         }
 
-        /* ===== LANGUAGE TOGGLE ===== */
-        .lang-toggle-wrapper {
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(180, 140, 100, 0.1), transparent);
+        }
+
+        /* ============================================================
+           TOP BAR - LANGUAGE + PDF
+           ============================================================ */
+        .top-bar {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 15px;
-            gap: 10px;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .lang-btn {
-            background: rgba(60, 50, 40, 0.3);
-            border: 1px solid rgba(180, 140, 100, 0.15);
+            background: rgba(60, 50, 40, 0.25);
+            border: 1px solid rgba(180, 140, 100, 0.1);
             color: #b8a898;
             padding: 8px 22px;
-            border-radius: 20px;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 0.8rem;
             font-family: 'Arial', sans-serif;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .lang-btn:hover {
             background: rgba(168, 136, 106, 0.15);
-            border-color: #a8886a;
+            border-color: rgba(180, 140, 100, 0.3);
             color: #f2e4d0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(168, 136, 106, 0.05);
         }
 
         .lang-btn.active {
-            background: rgba(168, 136, 106, 0.2);
-            border-color: #dcc09a;
+            background: rgba(168, 136, 106, 0.15);
+            border-color: rgba(200, 170, 130, 0.3);
             color: #f2e4d0;
-            box-shadow: 0 0 20px rgba(168, 136, 106, 0.05);
+            box-shadow: 0 0 30px rgba(168, 136, 106, 0.03);
         }
 
-        .lang-divider {
-            color: #4a3f35;
+        .top-divider {
+            color: rgba(74, 63, 53, 0.5);
             font-size: 0.8rem;
         }
 
-        /* ===== HEADER ===== */
+        .pdf-btn {
+            background: rgba(168, 136, 106, 0.08);
+            border: 1px solid rgba(180, 140, 100, 0.15);
+            color: #dcc09a;
+            padding: 8px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Arial', sans-serif;
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .pdf-btn:hover {
+            background: rgba(168, 136, 106, 0.15);
+            border-color: rgba(200, 170, 130, 0.3);
+            color: #f2e4d0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(168, 136, 106, 0.05);
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
         .header {
             text-align: center;
-            padding-bottom: 25px;
-            border-bottom: 1px solid rgba(180, 140, 100, 0.08);
-            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(180, 140, 100, 0.06);
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .header::after {
+            content: '✦';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(180, 140, 100, 0.2);
+            font-size: 0.8rem;
+            letter-spacing: 20px;
+            width: 60px;
+            text-align: center;
         }
 
         .book-icon {
-            font-size: 44px;
-            margin-bottom: 8px;
+            font-size: 48px;
+            margin-bottom: 10px;
             display: block;
-            opacity: 0.5;
-            letter-spacing: 10px;
+            opacity: 0.4;
+            letter-spacing: 12px;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 0.7;
+            }
         }
 
         .title {
-            font-size: 3.6rem;
+            font-size: 4rem;
             font-weight: 700;
-            letter-spacing: 5px;
-            background: linear-gradient(180deg, #f2e4d0, #bfa385);
+            letter-spacing: 6px;
+            background: linear-gradient(180deg, #f2e4d0 30%, #bfa385 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-family: 'Georgia', 'Times New Roman', serif;
-            margin-bottom: 4px;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 40px rgba(180, 140, 100, 0.05);
         }
 
         .subtitle {
-            color: #7a6a5a;
-            font-size: 1rem;
-            letter-spacing: 8px;
+            color: rgba(122, 106, 90, 0.6);
+            font-size: 0.9rem;
+            letter-spacing: 10px;
             text-transform: uppercase;
             font-weight: 300;
             margin-top: 4px;
+            font-family: 'Arial', sans-serif;
         }
 
         .author {
-            font-size: 1.6rem;
-            margin-top: 14px;
-            letter-spacing: 3px;
-            color: #dcc09a;
+            font-size: 1.8rem;
+            margin-top: 16px;
+            letter-spacing: 4px;
+            color: rgba(220, 192, 154, 0.7);
             font-weight: 400;
             font-style: italic;
+            font-family: 'Playfair Display', 'Georgia', serif;
         }
 
         .author span {
             color: #f2e4d0;
             font-style: normal;
             font-weight: 700;
-            letter-spacing: 4px;
-            text-shadow: 0 0 30px rgba(200, 170, 130, 0.15);
+            letter-spacing: 6px;
+            text-shadow: 0 0 40px rgba(200, 170, 130, 0.08);
+            position: relative;
         }
 
-        /* ===== TABLE OF CONTENTS ===== */
+        .author span::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(200, 170, 130, 0.2), transparent);
+        }
+
+        /* ============================================================
+           TABLE OF CONTENTS
+           ============================================================ */
         .toc {
-            background: rgba(30, 25, 20, 0.5);
-            border-radius: 10px;
-            padding: 25px 30px;
-            margin: 20px 0 30px 0;
-            border-left: 3px solid #a8886a;
-            transition: all 0.3s ease;
+            background: rgba(30, 25, 20, 0.3);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin: 25px 0 35px 0;
+            border-left: 3px solid rgba(180, 140, 100, 0.2);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .toc:hover {
-            border-left-color: #dcc09a;
+            border-left-color: rgba(200, 170, 130, 0.4);
+            background: rgba(30, 25, 20, 0.4);
         }
 
         .toc h2 {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            color: #a8886a;
-            margin-bottom: 16px;
+            letter-spacing: 6px;
+            color: rgba(168, 136, 106, 0.6);
+            margin-bottom: 18px;
             font-weight: 400;
             font-family: 'Arial', sans-serif;
         }
 
         .toc-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 5px 25px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 4px 20px;
         }
 
         .toc-item {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 7px 0;
+            padding: 8px 0;
             cursor: pointer;
-            color: #b8a898;
+            color: rgba(184, 168, 152, 0.7);
+            text-decoration: none;
             transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(180, 140, 100, 0.04);
+            border-bottom: 1px solid rgba(180, 140, 100, 0.03);
             font-size: 0.95rem;
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
         }
 
         .toc-item:hover {
             color: #f2e4d0;
-            padding-left: 10px;
-            border-bottom-color: rgba(180, 140, 100, 0.2);
+            padding-left: 12px;
+            border-bottom-color: rgba(180, 140, 100, 0.1);
         }
 
         .toc-item .ch-num {
-            color: #6a5a4a;
-            font-size: 0.75rem;
+            color: rgba(106, 90, 74, 0.6);
+            font-size: 0.7rem;
             font-weight: bold;
             min-width: 38px;
             font-family: 'Arial', sans-serif;
@@ -307,36 +471,62 @@
             font-style: italic;
         }
 
-        /* ===== READING AREA ===== */
+        /* ============================================================
+           READING AREA
+           ============================================================ */
         .chapter-display {
             padding: 10px 0;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .chapter-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .chapter-header::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 30%;
+            right: 30%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(180, 140, 100, 0.15), transparent);
         }
 
         .chapter-number {
-            color: #6a5a4a;
-            font-size: 0.85rem;
+            color: rgba(106, 90, 74, 0.5);
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             font-family: 'Arial', sans-serif;
         }
 
         .chapter-title {
-            font-size: 2.2rem;
+            font-size: 2.6rem;
             color: #f2e4d0;
-            margin-top: 6px;
+            margin-top: 8px;
             font-weight: 400;
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            letter-spacing: 1px;
         }
 
         .chapter-content {
             font-size: 1.15rem;
             line-height: 2;
-            color: #d4c5a9;
+            color: rgba(212, 197, 169, 0.9);
             text-align: justify;
         }
 
@@ -350,174 +540,264 @@
         }
 
         .chapter-content p:first-of-type::first-letter {
-            font-size: 4.2rem;
+            font-size: 4.5rem;
             float: left;
-            line-height: 0.9;
-            margin-right: 14px;
-            color: #dcc09a;
+            line-height: 0.85;
+            margin-right: 16px;
+            color: rgba(220, 192, 154, 0.6);
             font-weight: 700;
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            text-shadow: 0 2px 30px rgba(180, 140, 100, 0.05);
         }
 
-        /* ===== NAVIGATION ===== */
+        .chapter-content em {
+            color: rgba(220, 192, 154, 0.6);
+            font-style: italic;
+        }
+
+        /* ============================================================
+           NAVIGATION
+           ============================================================ */
         .nav-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 40px;
-            padding-top: 28px;
-            border-top: 1px solid rgba(180, 140, 100, 0.08);
+            margin-top: 45px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(180, 140, 100, 0.06);
             gap: 15px;
             flex-wrap: wrap;
         }
 
         .nav-btn {
-            background: rgba(60, 50, 40, 0.35);
-            border: 1px solid rgba(180, 140, 100, 0.12);
-            color: #b8a898;
-            padding: 13px 32px;
-            border-radius: 8px;
+            background: rgba(60, 50, 40, 0.2);
+            border: 1px solid rgba(180, 140, 100, 0.08);
+            color: rgba(184, 168, 152, 0.7);
+            padding: 14px 34px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-family: 'Arial', sans-serif;
-            transition: all 0.3s ease;
-            letter-spacing: 1.5px;
+            transition: all 0.4s ease;
+            letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 300;
             min-width: 150px;
             text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .nav-btn:hover:not(:disabled) {
-            background: rgba(168, 136, 106, 0.15);
-            border-color: #a8886a;
+            background: rgba(168, 136, 106, 0.1);
+            border-color: rgba(180, 140, 100, 0.2);
             color: #f2e4d0;
             transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(168, 136, 106, 0.04);
         }
 
         .nav-btn:disabled {
-            opacity: 0.25;
+            opacity: 0.2;
             cursor: not-allowed;
             transform: none !important;
         }
 
         .chapter-indicator {
-            color: #6a5a4a;
-            font-size: 0.85rem;
+            color: rgba(106, 90, 74, 0.5);
+            font-size: 0.8rem;
             font-family: 'Arial', sans-serif;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
         }
 
         .progress-bar {
             width: 100%;
             height: 2px;
-            background: rgba(60, 50, 40, 0.35);
-            margin-top: 20px;
-            border-radius: 2px;
+            background: rgba(60, 50, 40, 0.2);
+            margin-top: 22px;
+            border-radius: 4px;
             overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(180, 140, 100, 0.05), transparent);
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #a8886a, #dcc09a);
+            background: linear-gradient(90deg, rgba(168, 136, 106, 0.3), rgba(220, 192, 154, 0.5));
             width: 5%;
-            transition: width 0.6s ease;
-            border-radius: 2px;
+            transition: width 0.8s ease;
+            border-radius: 4px;
+            position: relative;
         }
 
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 6px;
+            height: 6px;
+            background: rgba(220, 192, 154, 0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(220, 192, 154, 0.1);
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
         .footer {
             text-align: center;
-            margin-top: 30px;
-            color: #4a3f35;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
+            margin-top: 35px;
+            color: rgba(74, 63, 53, 0.4);
+            font-size: 0.65rem;
+            letter-spacing: 4px;
             font-family: 'Arial', sans-serif;
             border-top: 1px solid rgba(180, 140, 100, 0.04);
-            padding-top: 25px;
+            padding-top: 28px;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 750px) {
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 5px;
+            background: #0a0807;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(60, 50, 40, 0.4);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(90, 74, 58, 0.5);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 780px) {
             .container {
-                padding: 25px 22px;
+                padding: 30px 28px;
+                border-radius: 16px;
             }
             .title {
-                font-size: 2.4rem;
+                font-size: 2.8rem;
+                letter-spacing: 4px;
             }
             .author {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
             .chapter-title {
-                font-size: 1.6rem;
+                font-size: 2rem;
             }
             .chapter-content {
                 font-size: 1.05rem;
-                line-height: 1.85;
+                line-height: 1.9;
             }
             .toc-grid {
                 grid-template-columns: 1fr;
             }
             .nav-btn {
-                padding: 11px 20px;
-                font-size: 0.75rem;
-                min-width: 110px;
+                padding: 12px 24px;
+                font-size: 0.7rem;
+                min-width: 120px;
             }
-            .lang-toggle-wrapper {
+            .top-bar {
                 justify-content: center;
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 18px 14px;
-                border-radius: 10px;
+                padding: 20px 16px;
+                border-radius: 12px;
             }
             .title {
-                font-size: 1.9rem;
+                font-size: 2rem;
                 letter-spacing: 2px;
+            }
+            .subtitle {
+                font-size: 0.7rem;
+                letter-spacing: 5px;
             }
             .author {
                 font-size: 1.1rem;
+                letter-spacing: 2px;
+            }
+            .chapter-title {
+                font-size: 1.5rem;
+            }
+            .chapter-content {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+            .chapter-content p:first-of-type::first-letter {
+                font-size: 3.2rem;
+                margin-right: 10px;
             }
             .nav-bar {
                 flex-direction: column;
-                gap: 10px;
+                gap: 12px;
             }
             .nav-btn {
                 width: 100%;
+                padding: 12px;
             }
-            .lang-btn {
+            .toc {
+                padding: 18px 16px;
+            }
+            .toc h2 {
+                font-size: 0.7rem;
+                letter-spacing: 4px;
+            }
+            .lang-btn,
+            .pdf-btn {
                 padding: 6px 16px;
                 font-size: 0.7rem;
             }
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            background: #0b0807;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3a3028;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #5a4a3a;
+            .book-icon {
+                font-size: 32px;
+                letter-spacing: 8px;
+            }
         }
     </style>
 </head>
 
 <body>
 
+    <!-- ============================================================
+    PARTICLES BACKGROUND
+    ============================================================ -->
+    <div id="particles"></div>
+
+    <!-- ============================================================
+    MAIN CONTAINER
+    ============================================================ -->
     <div class="container">
 
-        <!-- ===== LANGUAGE TOGGLE ===== -->
-        <div class="lang-toggle-wrapper">
+        <!-- ============================================================
+        TOP BAR
+        ============================================================ -->
+        <div class="top-bar">
             <button class="lang-btn active" id="langEn" data-lang="en">🇬🇧 English</button>
-            <span class="lang-divider">|</span>
+            <span class="top-divider">|</span>
             <button class="lang-btn" id="langUr" data-lang="ur">🇵🇰 اردو</button>
+            <span class="top-divider">|</span>
+            <a href="https://raw.githubusercontent.com/your-username/beneath-the-lie/main/novel.pdf" target="_blank" class="pdf-btn">
+                📄 Download PDF
+            </a>
         </div>
 
-        <!-- ===== HEADER ===== -->
+        <!-- ============================================================
+        HEADER
+        ============================================================ -->
         <div class="header">
             <span class="book-icon">✦ ✦ ✦</span>
             <h1 class="title" id="novelTitle">Beneath the Lie</h1>
@@ -525,22 +805,28 @@
             <div class="author">by <span>AMAN FATIMA</span></div>
         </div>
 
-        <!-- ===== TABLE OF CONTENTS ===== -->
+        <!-- ============================================================
+        TABLE OF CONTENTS
+        ============================================================ -->
         <div class="toc" id="tableOfContents">
             <h2 id="tocHeading">📖 Table of Contents</h2>
             <div class="toc-grid" id="tocList"></div>
         </div>
 
-        <!-- ===== CHAPTER DISPLAY ===== -->
+        <!-- ============================================================
+        CHAPTER DISPLAY
+        ============================================================ -->
         <div class="chapter-display" id="chapterDisplay">
             <div class="chapter-header">
                 <div class="chapter-number" id="chapterNumber">Chapter 1</div>
-                <h2 class="chapter-title" id="chapterTitle">Chapter Title</h2>
+                <h2 class="chapter-title" id="chapterTitle">The Message</h2>
             </div>
             <div class="chapter-content" id="chapterContent"></div>
         </div>
 
-        <!-- ===== NAVIGATION ===== -->
+        <!-- ============================================================
+        NAVIGATION
+        ============================================================ -->
         <div class="nav-bar">
             <button class="nav-btn" id="prevBtn" disabled>
                 <span id="prevText">← Previous</span>
@@ -561,143 +847,115 @@
     </div>
 
     <!-- ============================================================
-    JAVASCRIPT - YAHAN SIRF CHAPTER TITLES HAIN, KOI STORY NAHI
-    Aap apni story yahan paste karein
+    JAVASCRIPT - COMPLETE STORY + APP
     ============================================================ -->
     <script>
         // ================================================================
-        //  🔴 SIRF CHAPTER TITLES - KOI STORY NAHI 🔴
-        //  Apni story ke liye neeche "contentEn" aur "contentUr" mein
-        //  <p>text</p> ke andar paste karein
+        //  PARTICLES BACKGROUND
         // ================================================================
-
-        const chapters = [];
-
-        // 20 EMPTY CHAPTERS - SIRF TITLES
-        for (let i = 1; i <= 20; i++) {
-            chapters.push({
-                number: i,
-                titleEn: `Chapter ${i} Title`,
-                titleUr: `باب ${i} کا عنوان`,
-                contentEn: `
-                    <p><strong>📝 Paste your English chapter ${i} text here.</strong></p>
-                    <p>Open your PDF, copy the text, and paste it inside these &lt;p&gt; tags.</p>
-                    <p>Add as many paragraphs as you need.</p>
-                `,
-                contentUr: `
-                    <p><strong>📝 اپنا اردو باب ${i} کا متن یہاں پیسٹ کریں۔</strong></p>
-                    <p>اپنی PDF کھولیں، متن کاپی کریں، اور ان &lt;p&gt; ٹیگز کے اندر پیسٹ کریں۔</p>
-                    <p>جتنے پیراگراف چاہیں شامل کریں۔</p>
-                `
-            });
-        }
+        (function createParticles() {
+            const container = document.getElementById('particles');
+            const count = 40;
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 4 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 15) + 's';
+                particle.style.animationDelay = (Math.random() * 20) + 's';
+                container.appendChild(particle);
+            }
+        })();
 
         // ================================================================
-        //  APP - YAHAN KUCH NA BADLEIN
+        //  COMPLETE NOVEL DATA - ALL 20 CHAPTERS
+        //  English + Urdu translations
         // ================================================================
 
-        let currentChapter = 0;
-        let currentLang = 'en';
-
-        const langText = {
-            en: {
-                toc: '📖 Table of Contents',
-                prev: '← Previous',
-                next: 'Next →',
-                footer: 'Beneath the Lie • Aman Fatima • All rights reserved',
-                subtitle: 'A Mystery Novel'
-            },
-            ur: {
-                toc: '📖 فہرست مضامین',
-                prev: '← پچھلا',
-                next: 'اگلا →',
-                footer: 'بینیس دی لائی • امان فاطمہ • جملہ حقوق محفوظ ہیں',
-                subtitle: 'ایک پراسرار ناول'
-            }
-        };
-
-        function buildTOC() {
-            const tocList = document.getElementById('tocList');
-            tocList.innerHTML = '';
-            chapters.forEach((ch, index) => {
-                const div = document.createElement('div');
-                div.className = 'toc-item';
-                const title = currentLang === 'en' ? ch.titleEn : ch.titleUr;
-                div.innerHTML = `
-                    <span class="ch-num">Ch. ${ch.number}</span>
-                    <span class="ch-title">${title}</span>
-                `;
-                div.addEventListener('click', () => goToChapter(index));
-                tocList.appendChild(div);
-            });
-        }
-
-        function renderChapter(index) {
-            if (index < 0 || index >= chapters.length) return;
-            currentChapter = index;
-            const ch = chapters[index];
-
-            const title = currentLang === 'en' ? ch.titleEn : ch.titleUr;
-            const content = currentLang === 'en' ? ch.contentEn : ch.contentUr;
-
-            document.getElementById('chapterNumber').textContent = `Chapter ${ch.number}`;
-            document.getElementById('chapterTitle').textContent = title;
-            document.getElementById('chapterContent').innerHTML = content;
-
-            document.getElementById('chapterIndicator').textContent = `${ch.number} / ${chapters.length}`;
-            document.getElementById('prevBtn').disabled = (index === 0);
-            document.getElementById('nextBtn').disabled = (index === chapters.length - 1);
-
-            const progress = ((index + 1) / chapters.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-
-            document.querySelector('.chapter-display').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function goToChapter(index) {
-            if (index >= 0 && index < chapters.length) {
-                renderChapter(index);
-            }
-        }
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.body.classList.toggle('urdu', lang === 'ur');
-
-            document.getElementById('langEn').classList.toggle('active', lang === 'en');
-            document.getElementById('langUr').classList.toggle('active', lang === 'ur');
-
-            document.getElementById('tocHeading').textContent = langText[lang].toc;
-            document.getElementById('prevText').textContent = langText[lang].prev;
-            document.getElementById('nextText').textContent = langText[lang].next;
-            document.getElementById('footerText').textContent = langText[lang].footer;
-            document.getElementById('novelSubtitle').textContent = langText[lang].subtitle;
-
-            buildTOC();
-            renderChapter(currentChapter);
-        }
-
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            if (currentChapter > 0) goToChapter(currentChapter - 1);
-        });
-
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            if (currentChapter < chapters.length - 1) goToChapter(currentChapter + 1);
-        });
-
-        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
-        document.getElementById('langUr').addEventListener('click', () => setLanguage('ur'));
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' && currentChapter > 0) {
-                goToChapter(currentChapter - 1);
-            } else if (e.key === 'ArrowRight' && currentChapter < chapters.length - 1) {
-                goToChapter(currentChapter + 1);
-            }
-        });
-
-        setLanguage('en');
-    </script>
-
-</body>
-</html>
+        const chapters = [{
+            number: 1,
+            titleEn: "The Message",
+            titleUr: "پیغام",
+            contentEn: `
+                        <p>Elara had learned one thing very early in life: trust could be dangerous.</p>
+                        <p>The city looked beautiful from the outside. Bright lights filled the streets, people laughed in cafes, and children played in the parks. But behind every smile, there could be a secret.</p>
+                        <p>As Elara walked home from school that evening, her phone suddenly vibrated.</p>
+                        <p><em>Unknown Number: "I know what happened three years ago."</em></p>
+                        <p>Elara froze.</p>
+                        <p>Three years ago was a time she had promised never to remember again.</p>
+                        <p>Before she could reply, another message appeared.</p>
+                        <p><em>Unknown Number: "If you want the truth, come to the old library at midnight. Come alone."</em></p>
+                        <p>A cold shiver ran down Elara's spine.</p>
+                        <p>Someone knew her secret.</p>
+                        <p>Elara stared at the screen, reading the message again and again.</p>
+                        <p>"I know what happened three years ago."</p>
+                        <p>Her hands began to shake.</p>
+                        <p>No one was supposed to know.</p>
+                        <p>For a moment, Elara thought about deleting the messages and pretending she had never seen them. But curiosity was stronger than fear.</p>
+                        <p>At exactly midnight, Elara stood in front of the old library.</p>
+                        <p>The building had been abandoned for years. Its broken windows looked like dark eyes watching from the shadows.</p>
+                        <p>The door slowly creaked open.</p>
+                        <p>"Hello?" Elara called out.</p>
+                        <p>No answer.</p>
+                        <p>Then...</p>
+                        <p><em>Tap. Tap. Tap.</em></p>
+                        <p>Footsteps echoed from the second floor.</p>
+                        <p>Elara's heart pounded.</p>
+                        <p>She climbed the dusty stairs and found a single envelope lying on the floor.</p>
+                        <p>On the front, written in red ink, were the words:</p>
+                        <p><em>"The truth starts here."</em></p>
+                        <p>With trembling hands, Elara opened it.</p>
+                        <p>Inside was an old photograph.</p>
+                        <p>It showed five teenagers standing together.</p>
+                        <p>Elara recognized four of them immediately.</p>
+                        <p>The fifth person's face had been scratched out.</p>
+                        <p>Suddenly, a voice came from the darkness.</p>
+                        <p>"You finally came."</p>
+                        <p>Elara spun around.</p>
+                        <p>A figure stepped out of the shadows, his face hidden by a black hood.</p>
+                        <p>"You don't remember me, do you?" the stranger asked.</p>
+                        <p>Before Elara could answer, the lights in the library went out.</p>
+                        <p>Everything became silent.</p>
+                        <p>"You don't remember that night," Roman said quietly. "But I do."</p>
+                        <p>Before Elara could ask another question, a loud creak echoed somewhere in the library.</p>
+                        <p>Roman stopped talking.</p>
+                        <p>Another sound followed.</p>
+                        <p>A faint thud.</p>
+                        <p>Elara frowned. "What was that?"</p>
+                        <p>Roman's expression suddenly changed.</p>
+                        <p>He looked toward the dark hallway, listening carefully.</p>
+                        <p>Then...</p>
+                        <p><em>Tap.</em></p>
+                        <p>A footstep.</p>
+                        <p>His eyes widened.</p>
+                        <p>Without saying a word, he grabbed Elara's hand and pulled her into a small storage room beside the shelves.</p>
+                        <p>"Roman, what are you doing?" she whispered.</p>
+                        <p>"Shh," he said, closing the door halfway.</p>
+                        <p>Another footstep echoed through the library.</p>
+                        <p>Roman's grip on her hand tightened.</p>
+                        <p>"I think we're not alone," he whispered.</p>
+                        <p>Elara's heart began to race.</p>
+                        <p>"What do you mean?"</p>
+                        <p>Roman looked toward the crack in the door.</p>
+                        <p>"I think... there's a third person here."</p>
+                        <p>Silence.</p>
+                        <p>Then the sound of footsteps slowly moved closer.</p>
+                        <p>Neither of them dared to breathe. The footsteps came closer. Roman placed a hand over her mouth.</p>
+                        <p>"Don't make a sound," he whispered.</p>
+                        <p>The footsteps stopped right outside the door.</p>
+                        <p>Silence.</p>
+                        <p>Elara could hear her own heartbeat.</p>
+                        <p>A few seconds passed.</p>
+                        <p>Then the footsteps slowly moved away.</p>
+                        <p>Roman waited a little longer before taking his hand away.</p>
+                        <p>"Who was that?" Elara asked softly.</p>
+                        <p>Roman looked at the dark hallway, his expression unreadable.</p>
+                        <p>"I don't know," he said quietly.</p>
+                        <p>He took a deep breath.</p>
+                        <p>"But this means we're too late."</p>
+                        <p>"What do you mean?"</p>
+                        <p>Roman turned to look at her.</p>
+                        <p>"Someone else is looking for the truth before us."</p>
+                        <p>Roman slowly pointed toward the old

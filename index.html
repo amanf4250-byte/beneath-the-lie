@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
     <title>Beneath the Lie - by Aman Fatima</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
     <style>
-        /* ===== RESET ===== */
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -15,46 +15,70 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0d0b0a;
-            color: #e5dcd3;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 24px;
-            background-image:
-                radial-gradient(circle at 20% 30%, rgba(255, 180, 200, 0.04) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(180, 200, 255, 0.04) 0%, transparent 50%),
-                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.005) 0px, rgba(255, 255, 255, 0.005) 2px, transparent 2px, transparent 6px);
-            backdrop-filter: blur(0.5px);
+            transition: background 0.8s ease, color 0.5s ease;
+            background: #0d0b0a;
+            color: #e5dcd3;
         }
 
-        /* ===== SOFT GLOW ORBS ===== */
+        /* ===== THEME COLORS (will change via JS) ===== */
+        .theme-mystery {
+            background: #0a0807;
+            color: #d4c5a9;
+        }
+        .theme-emotional {
+            background: #1a0e12;
+            color: #f0d4d4;
+        }
+        .theme-thriller {
+            background: #0e0a0a;
+            color: #c9b8b8;
+        }
+        .theme-political {
+            background: #0f0e0c;
+            color: #c9c0b0;
+        }
+        .theme-funny {
+            background: #12100e;
+            color: #d4cdb8;
+        }
+        .theme-romantic {
+            background: #1a0f14;
+            color: #f0d4de;
+        }
+        .theme-dark {
+            background: #0a0807;
+            color: #b8a8a0;
+        }
+
+        /* ===== ORBS (floating glow balls) ===== */
         .orb {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(90px);
             pointer-events: none;
             z-index: 0;
+            transition: background 1.2s ease, transform 1.5s ease;
         }
         .orb1 {
             width: 300px;
             height: 300px;
-            background: rgba(255, 140, 180, 0.08);
             top: -80px;
             left: -80px;
         }
         .orb2 {
             width: 400px;
             height: 400px;
-            background: rgba(140, 180, 255, 0.06);
             bottom: -100px;
             right: -100px;
         }
         .orb3 {
             width: 200px;
             height: 200px;
-            background: rgba(255, 220, 160, 0.05);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -64,16 +88,16 @@
         .glass {
             max-width: 920px;
             width: 100%;
-            background: rgba(20, 17, 16, 0.55);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            background: rgba(20, 17, 16, 0.45);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 48px;
             padding: 44px 48px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
             position: relative;
             z-index: 2;
-            transition: all 0.3s ease;
+            transition: border-color 0.8s ease, box-shadow 0.8s ease;
         }
 
         /* ===== HEADER ===== */
@@ -83,15 +107,12 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             margin-bottom: 32px;
         }
-
         .header .icon {
             font-size: 28px;
             letter-spacing: 10px;
-            opacity: 0.25;
+            opacity: 0.2;
             display: block;
-            margin-bottom: 4px;
         }
-
         .header h1 {
             font-family: 'Playfair Display', serif;
             font-size: 3.6rem;
@@ -101,20 +122,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .header .tag {
             font-size: 0.7rem;
             letter-spacing: 6px;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.1);
             margin-top: 4px;
         }
-
         .header .author {
             font-family: 'Playfair Display', serif;
             font-size: 1.2rem;
             font-style: italic;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.15);
             margin-top: 12px;
         }
         .header .author span {
@@ -132,97 +151,83 @@
             margin: 24px 0 32px 0;
             border: 1px solid rgba(255, 255, 255, 0.02);
         }
-
         .toc h2 {
             font-size: 0.7rem;
             letter-spacing: 6px;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.08);
             margin-bottom: 16px;
             font-weight: 400;
         }
-
         .toc-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 2px 16px;
         }
-
         .toc-item {
             display: flex;
             align-items: center;
             gap: 10px;
             padding: 6px 0;
             cursor: pointer;
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.2);
             transition: 0.25s ease;
             border-bottom: 1px solid rgba(255, 255, 255, 0.01);
             font-size: 0.9rem;
         }
-
         .toc-item:hover {
             color: #fff;
             padding-left: 8px;
             border-bottom-color: rgba(255, 255, 255, 0.05);
         }
-
         .toc-item .num {
-            color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.08);
             font-size: 0.65rem;
             font-weight: 600;
             min-width: 32px;
-            font-family: 'Inter', sans-serif;
         }
 
-        .toc-item .title {
-            font-weight: 300;
-        }
-
-        /* ===== CHAPTER DISPLAY ===== */
+        /* ===== CHAPTER BOX ===== */
         .chapter-box {
             text-align: center;
             padding: 28px 0 8px;
-            animation: fadeUp 0.4s ease;
+            animation: fadeUp 0.5s ease;
         }
-
         @keyframes fadeUp {
             0% {
                 opacity: 0;
-                transform: translateY(12px);
+                transform: translateY(16px);
             }
             100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         .chapter-box .big-icon {
             font-size: 44px;
             opacity: 0.15;
             margin-bottom: 8px;
             display: block;
+            transition: 0.5s ease;
         }
-
         .chapter-box h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 400;
-            color: #f0e3d4;
             letter-spacing: 1px;
+            transition: color 0.5s ease;
         }
-
         .chapter-box .sub {
-            color: rgba(255, 255, 255, 0.1);
             font-size: 0.85rem;
             margin-top: 4px;
+            opacity: 0.3;
+            transition: opacity 0.5s ease;
         }
-
         .pdf-btn {
             display: inline-block;
             margin-top: 18px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            color: #d4c5b5;
             padding: 12px 36px;
             border-radius: 60px;
             font-size: 0.75rem;
@@ -230,13 +235,12 @@
             letter-spacing: 2px;
             text-decoration: none;
             transition: 0.3s ease;
+            color: inherit;
             backdrop-filter: blur(4px);
         }
-
         .pdf-btn:hover {
             background: rgba(255, 255, 255, 0.04);
             border-color: rgba(255, 255, 255, 0.08);
-            color: #fff;
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
@@ -252,11 +256,9 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .nav-btn {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.02);
-            color: rgba(255, 255, 255, 0.2);
             padding: 12px 28px;
             border-radius: 60px;
             cursor: pointer;
@@ -266,23 +268,20 @@
             text-transform: uppercase;
             transition: 0.3s ease;
             min-width: 120px;
+            color: inherit;
         }
-
         .nav-btn:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(255, 255, 255, 0.04);
-            color: #fff;
         }
-
         .nav-btn:disabled {
             opacity: 0.1;
             cursor: not-allowed;
         }
-
         .indicator {
-            color: rgba(255, 255, 255, 0.08);
             font-size: 0.75rem;
             letter-spacing: 3px;
+            opacity: 0.2;
         }
 
         /* ===== PROGRESS ===== */
@@ -294,11 +293,10 @@
             border-radius: 10px;
             overflow: hidden;
         }
-
         .progress-fill {
             height: 100%;
             width: 5%;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.15));
+            background: rgba(255, 255, 255, 0.1);
             transition: width 0.6s ease;
         }
 
@@ -308,7 +306,7 @@
             margin-top: 32px;
             font-size: 0.55rem;
             letter-spacing: 4px;
-            color: rgba(255, 255, 255, 0.04);
+            opacity: 0.1;
             border-top: 1px solid rgba(255, 255, 255, 0.01);
             padding-top: 24px;
         }
@@ -334,7 +332,6 @@
                 font-size: 0.6rem;
             }
         }
-
         @media (max-width: 450px) {
             .glass {
                 padding: 18px 14px;
@@ -342,9 +339,6 @@
             }
             .header h1 {
                 font-size: 2rem;
-            }
-            .header .author {
-                font-size: 1rem;
             }
             .chapter-box h2 {
                 font-size: 1.2rem;
@@ -365,11 +359,11 @@
 <body>
 
     <!-- ===== ORBS ===== -->
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
+    <div class="orb orb1" id="orb1"></div>
+    <div class="orb orb2" id="orb2"></div>
+    <div class="orb orb3" id="orb3"></div>
 
-    <div class="glass">
+    <div class="glass" id="glassCard">
 
         <!-- ===== HEADER ===== -->
         <div class="header">
@@ -387,7 +381,7 @@
 
         <!-- ===== CHAPTER ===== -->
         <div class="chapter-box" id="chapterBox">
-            <span class="big-icon">📖</span>
+            <span class="big-icon" id="chapterIcon">📖</span>
             <h2 id="chapterTitle">Chapter 1</h2>
             <div class="sub" id="chapterDesc">Click below to read</div>
             <a href="#" class="pdf-btn" id="pdfDownloadBtn" target="_blank">📥 Download PDF</a>
@@ -436,31 +430,180 @@
         };
 
         // ================================================================
-        //  TITLES
+        //  CHAPTER TITLES + THEMES + ICONS
         // ================================================================
 
-        const titles = [
-            "The Message",
-            "The Pieces That Never Fit",
-            "Shadows of Yesterday",
-            "The Cost of Power",
-            "Echoes in the Dark",
-            "Old Photographs",
-            "The Ring",
-            "What He Built",
-            "You Will Know Soon",
-            "The Same Fragrance",
-            "The Lie",
-            "The Things You Were Never Told",
-            "Questions",
-            "The Missing Piece",
-            "The First Clue",
-            "The Secret She Never Told",
-            "The Memory",
-            "When Everything Fell Apart",
-            "The Verdict",
-            "One More Chance"
-        ];
+        const chapters = [{
+            title: "The Message",
+            theme: "mystery",
+            icon: "🔮",
+            vibe: "mystical, suspense"
+        }, {
+            title: "The Pieces That Never Fit",
+            theme: "emotional",
+            icon: "💔",
+            vibe: "heartbreak, confusion"
+        }, {
+            title: "Shadows of Yesterday",
+            theme: "thriller",
+            icon: "🌑",
+            vibe: "dark, intense"
+        }, {
+            title: "The Cost of Power",
+            theme: "political",
+            icon: "⚖️",
+            vibe: "power, betrayal"
+        }, {
+            title: "Echoes in the Dark",
+            theme: "funny",
+            icon: "😂",
+            vibe: "dark humor, irony"
+        }, {
+            title: "Old Photographs",
+            theme: "emotional",
+            icon: "📸",
+            vibe: "nostalgia, sadness"
+        }, {
+            title: "The Ring",
+            theme: "mystery",
+            icon: "💍",
+            vibe: "secrets, clues"
+        }, {
+            title: "What He Built",
+            theme: "thriller",
+            icon: "🏛️",
+            vibe: "power, tension"
+        }, {
+            title: "You Will Know Soon",
+            theme: "mystery",
+            icon: "🕯️",
+            vibe: "anticipation, fear"
+        }, {
+            title: "The Same Fragrance",
+            theme: "emotional",
+            icon: "🌹",
+            vibe: "longing, memory"
+        }, {
+            title: "The Lie",
+            theme: "thriller",
+            icon: "🗡️",
+            vibe: "deceit, danger"
+        }, {
+            title: "The Things You Were Never Told",
+            theme: "emotional",
+            icon: "📜",
+            vibe: "revelation, pain"
+        }, {
+            title: "Questions",
+            theme: "mystery",
+            icon: "❓",
+            vibe: "confusion, searching"
+        }, {
+            title: "The Missing Piece",
+            theme: "thriller",
+            icon: "🧩",
+            vibe: "suspense, discovery"
+        }, {
+            title: "The First Clue",
+            theme: "mystery",
+            icon: "🔍",
+            vibe: "investigation, hope"
+        }, {
+            title: "The Secret She Never Told",
+            theme: "emotional",
+            icon: "🤫",
+            vibe: "guilt, hidden truths"
+        }, {
+            title: "The Memory",
+            theme: "emotional",
+            icon: "🧠",
+            vibe: "flashbacks, trauma"
+        }, {
+            title: "When Everything Fell Apart",
+            theme: "emotional",
+            icon: "💀",
+            vibe: "grief, collapse"
+        }, {
+            title: "The Verdict",
+            theme: "thriller",
+            icon: "⚖️",
+            vibe: "justice, finality"
+        }, {
+            title: "One More Chance",
+            theme: "romantic",
+            icon: "❤️‍🔥",
+            vibe: "love, hope, new beginning"
+        }];
+
+        // ================================================================
+        //  THEME COLORS
+        // ================================================================
+
+        const themeColors = {
+            mystery: {
+                bg: '#0a0807',
+                text: '#d4c5a9',
+                orb1: 'rgba(180, 140, 200, 0.08)',
+                orb2: 'rgba(140, 100, 200, 0.06)',
+                orb3: 'rgba(200, 160, 220, 0.04)',
+                border: 'rgba(180, 140, 200, 0.08)',
+                title: '#d4c5a9'
+            },
+            emotional: {
+                bg: '#1a0e12',
+                text: '#f0d4d4',
+                orb1: 'rgba(255, 120, 150, 0.1)',
+                orb2: 'rgba(200, 80, 120, 0.08)',
+                orb3: 'rgba(255, 160, 180, 0.05)',
+                border: 'rgba(255, 120, 150, 0.08)',
+                title: '#f0d4d4'
+            },
+            thriller: {
+                bg: '#0e0a0a',
+                text: '#c9b8b8',
+                orb1: 'rgba(200, 50, 50, 0.08)',
+                orb2: 'rgba(150, 30, 30, 0.06)',
+                orb3: 'rgba(220, 80, 80, 0.04)',
+                border: 'rgba(200, 50, 50, 0.08)',
+                title: '#c9b8b8'
+            },
+            political: {
+                bg: '#0f0e0c',
+                text: '#c9c0b0',
+                orb1: 'rgba(200, 180, 100, 0.08)',
+                orb2: 'rgba(160, 140, 80, 0.06)',
+                orb3: 'rgba(220, 200, 120, 0.04)',
+                border: 'rgba(200, 180, 100, 0.08)',
+                title: '#c9c0b0'
+            },
+            funny: {
+                bg: '#12100e',
+                text: '#d4cdb8',
+                orb1: 'rgba(255, 220, 100, 0.08)',
+                orb2: 'rgba(200, 180, 60, 0.06)',
+                orb3: 'rgba(255, 240, 150, 0.04)',
+                border: 'rgba(255, 220, 100, 0.08)',
+                title: '#d4cdb8'
+            },
+            romantic: {
+                bg: '#1a0f14',
+                text: '#f0d4de',
+                orb1: 'rgba(255, 100, 150, 0.12)',
+                orb2: 'rgba(200, 80, 130, 0.08)',
+                orb3: 'rgba(255, 150, 200, 0.06)',
+                border: 'rgba(255, 100, 150, 0.1)',
+                title: '#f0d4de'
+            },
+            dark: {
+                bg: '#0a0807',
+                text: '#b8a8a0',
+                orb1: 'rgba(100, 100, 100, 0.06)',
+                orb2: 'rgba(80, 80, 80, 0.04)',
+                orb3: 'rgba(120, 120, 120, 0.03)',
+                border: 'rgba(100, 100, 100, 0.06)',
+                title: '#b8a8a0'
+            }
+        };
 
         // ================================================================
         //  APP
@@ -468,13 +611,36 @@
 
         let current = 0;
 
+        function applyTheme(themeName) {
+            const colors = themeColors[themeName] || themeColors.mystery;
+            document.body.style.background = colors.bg;
+            document.body.style.color = colors.text;
+
+            document.getElementById('orb1').style.background = colors.orb1;
+            document.getElementById('orb2').style.background = colors.orb2;
+            document.getElementById('orb3').style.background = colors.orb3;
+
+            document.getElementById('glassCard').style.borderColor = colors.border;
+            document.getElementById('glassCard').style.boxShadow =
+                `0 30px 80px rgba(0,0,0,0.8), 0 0 60px ${colors.orb1}`;
+
+            document.querySelector('.header h1').style.background =
+                `linear-gradient(135deg, ${colors.text} 20%, ${colors.title} 70%)`;
+            document.querySelector('.header h1').style.webkitBackgroundClip = 'text';
+            document.querySelector('.header h1').style.webkitTextFillColor = 'transparent';
+
+            document.getElementById('chapterTitle').style.color = colors.title;
+            document.querySelector('.pdf-btn').style.color = colors.text;
+            document.querySelector('.pdf-btn').style.borderColor = colors.border;
+        }
+
         function renderTOC() {
             const container = document.getElementById('tocList');
             container.innerHTML = '';
-            titles.forEach((t, i) => {
+            chapters.forEach((ch, i) => {
                 const div = document.createElement('div');
                 div.className = 'toc-item';
-                div.innerHTML = `<span class="num">Ch.${i+1}</span><span class="title">${t}</span>`;
+                div.innerHTML = `<span class="num">Ch.${i+1}</span><span>${ch.icon} ${ch.title}</span>`;
                 div.addEventListener('click', () => goTo(i));
                 container.appendChild(div);
             });
@@ -483,21 +649,31 @@
         function goTo(index) {
             if (index < 0 || index >= 20) return;
             current = index;
+            const ch = chapters[index];
             const num = index + 1;
 
-            document.getElementById('chapterTitle').innerText = `Chapter ${num}: ${titles[index]}`;
+            // Update UI
+            document.getElementById('chapterTitle').textContent = `Chapter ${num}: ${ch.title}`;
+            document.getElementById('chapterIcon').textContent = ch.icon;
+            document.getElementById('chapterDesc').textContent = `✦ ${ch.vibe} ✦`;
             document.getElementById('pdfDownloadBtn').href = pdfLinks[num] || '#';
-            document.getElementById('chapterIndicator').innerText = `${num} / 20`;
+            document.getElementById('chapterIndicator').textContent = `${num} / 20`;
             document.getElementById('prevBtn').disabled = index === 0;
             document.getElementById('nextBtn').disabled = index === 19;
             document.getElementById('progressFill').style.width = `${(num / 20) * 100}%`;
 
+            // Apply theme
+            applyTheme(ch.theme);
+
+            // Scroll
             document.getElementById('chapterBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // Event listeners
         document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
         document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
 
+        // Init
         renderTOC();
         goTo(0);
     </script>

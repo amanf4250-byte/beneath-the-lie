@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beneath the Lie - by Aman Fatima</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +24,6 @@
             padding: 20px;
             background-image: radial-gradient(ellipse at 30% 40%, rgba(60, 30, 40, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(30, 40, 60, 0.25) 0%, transparent 60%);
             transition: all 0.4s ease;
-            position: relative;
         }
         body::before {
             content: '';
@@ -40,7 +37,6 @@
             z-index: 0;
         }
 
-        /* ===== PARTICLES ===== */
         #particles {
             position: fixed;
             top: 0;
@@ -75,7 +71,6 @@
             }
         }
 
-        /* ===== LANGUAGE MODES ===== */
         body.urdu {
             font-family: 'Noto Nastaliq Urdu', 'Cormorant Garamond', serif;
             direction: rtl;
@@ -86,7 +81,6 @@
             direction: rtl;
             text-align: right;
         }
-
         body.urdu .chapter-content p,
         body.farsi .chapter-content p {
             text-indent: 0;
@@ -184,7 +178,6 @@
             letter-spacing: 1px;
         }
 
-        /* ===== GLASS CONTAINER ===== */
         .container {
             max-width: 900px;
             width: 100%;
@@ -209,7 +202,6 @@
             border-radius: 50%;
         }
 
-        /* ===== TOP BAR ===== */
         .top-bar {
             display: flex;
             justify-content: flex-end;
@@ -245,28 +237,35 @@
             color: rgba(74, 63, 53, 0.5);
             font-size: 0.7rem;
         }
-        .pdf-btn {
+
+        /* ===== PDF DOWNLOAD BUTTON (Chapter wise) ===== */
+        .pdf-chapter-btn {
             background: rgba(168, 136, 106, 0.08);
             border: 1px solid rgba(180, 140, 100, 0.15);
             color: #dcc09a;
-            padding: 6px 16px;
-            border-radius: 30px;
+            padding: 4px 14px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-family: 'Arial', sans-serif;
             transition: all 0.4s ease;
             letter-spacing: 0.5px;
             text-decoration: none;
             display: inline-block;
+            margin-left: 10px;
         }
-        .pdf-btn:hover {
+        .pdf-chapter-btn:hover {
             background: rgba(168, 136, 106, 0.15);
             border-color: rgba(200, 170, 130, 0.3);
             color: #f2e4d0;
             transform: translateY(-1px);
         }
+        body.urdu .pdf-chapter-btn,
+        body.farsi .pdf-chapter-btn {
+            margin-left: 0;
+            margin-right: 10px;
+        }
 
-        /* ===== HEADER ===== */
         .header {
             text-align: center;
             padding-bottom: 30px;
@@ -339,7 +338,6 @@
             letter-spacing: 6px;
         }
 
-        /* ===== TOC ===== */
         .toc {
             background: rgba(30, 25, 20, 0.3);
             border-radius: 14px;
@@ -393,7 +391,6 @@
             font-style: italic;
         }
 
-        /* ===== READING AREA ===== */
         .chapter-display {
             padding: 10px 0;
             animation: fadeInUp 0.5s ease;
@@ -464,7 +461,28 @@
             font-style: italic;
         }
 
-        /* ===== NAV ===== */
+        /* ===== PDF BUTTON INSIDE CHAPTER HEADER ===== */
+        .chapter-pdf-link {
+            display: inline-block;
+            margin-top: 10px;
+            background: rgba(168, 136, 106, 0.1);
+            border: 1px solid rgba(180, 140, 100, 0.15);
+            color: #dcc09a;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-family: 'Arial', sans-serif;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+        }
+        .chapter-pdf-link:hover {
+            background: rgba(168, 136, 106, 0.2);
+            border-color: rgba(200, 170, 130, 0.3);
+            color: #f2e4d0;
+            transform: translateY(-2px);
+        }
+
         .nav-bar {
             display: flex;
             justify-content: space-between;
@@ -534,7 +552,6 @@
             padding-top: 28px;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 780px) {
             .container {
                 padding: 30px 28px;
@@ -603,10 +620,13 @@
             .toc {
                 padding: 18px 16px;
             }
-            .lang-btn,
-            .pdf-btn {
+            .lang-btn {
                 padding: 4px 10px;
                 font-size: 0.55rem;
+            }
+            .chapter-pdf-link {
+                font-size: 0.6rem;
+                padding: 4px 14px;
             }
         }
 
@@ -627,18 +647,14 @@
 
     <div class="container">
 
-        <!-- ===== LANGUAGE TOGGLE - 3 LANGUAGES ===== -->
         <div class="top-bar">
             <button class="lang-btn active" id="langEn">🇬🇧 English</button>
             <span class="top-divider">|</span>
             <button class="lang-btn" id="langUr">🇵🇰 اردو</button>
             <span class="top-divider">|</span>
             <button class="lang-btn" id="langFa">🇮🇷 فارسی</button>
-            <span class="top-divider">|</span>
-            <a href="#" class="pdf-btn">📄 Download PDF</a>
         </div>
 
-        <!-- ===== HEADER ===== -->
         <div class="header">
             <span class="book-icon">✦ ✦ ✦</span>
             <h1 class="title" id="novelTitle">Beneath the Lie</h1>
@@ -646,22 +662,20 @@
             <div class="author">by <span>AMAN FATIMA</span></div>
         </div>
 
-        <!-- ===== TOC ===== -->
         <div class="toc">
             <h2 id="tocHeading">📖 Table of Contents</h2>
             <div class="toc-grid" id="tocList"></div>
         </div>
 
-        <!-- ===== CHAPTER DISPLAY ===== -->
         <div class="chapter-display" id="chapterDisplay">
             <div class="chapter-header">
                 <div class="chapter-number" id="chapterNumber">Chapter 1</div>
                 <h2 class="chapter-title" id="chapterTitle">The Message</h2>
+                <a href="#" class="chapter-pdf-link" id="chapterPdfLink" target="_blank">📄 Download PDF</a>
             </div>
             <div class="chapter-content" id="chapterContent"></div>
         </div>
 
-        <!-- ===== NAV ===== -->
         <div class="nav-bar">
             <button class="nav-btn" id="prevBtn" disabled><span id="prevText">← Previous</span></button>
             <span class="chapter-indicator" id="chapterIndicator">1 / 20</span>
@@ -676,9 +690,7 @@
     </div>
 
     <script>
-        // ================================================================
-        //  PARTICLES
-        // ================================================================
+        // ===== PARTICLES =====
         (function() {
             const c = document.getElementById('particles');
             for (let i = 0; i < 40; i++) {
@@ -692,13 +704,40 @@
         })();
 
         // ================================================================
-        //  ALL 20 CHAPTERS - ENGLISH + URDU + FARSI
+        //  ALL 20 CHAPTERS WITH PDF LINKS
+        //  🔴 APNI PDF FILES KE LINKS YAHAN DAALEIN 🔴
         // ================================================================
 
-        const chapters = [{
-            number: 1,
-            titleEn: "The Message",
-            titleUr: "پیغام",
-            titleFa: "پیام",
-            contentEn: `<p>Elara had learned one thing very early in life: trust could be dangerous.</p><p>The city looked beautiful from the outside. Bright lights filled the streets, people laughed in cafes, and children played in the parks. But behind every smile, there could be a secret.</p><p>As Elara walked home from school that evening, her phone suddenly vibrated.</p><p><em>Unknown Number: "I know what happened three years ago."</em></p><p>Elara froze.</p><p>Three years ago was a time she had promised never to remember again.</p><p>Before she could reply, another message appeared.</p><p><em>Unknown Number: "If you want the truth, come to the old library at midnight. Come alone."</em></p><p>A cold shiver ran down Elara's spine.</p><p>Someone knew her secret.</p><p>Elara stared at the screen, reading the message again and again.</p><p>"I know what happened three years ago."</p><p>Her hands began to shake.</p><p>No one was supposed to know.</p><p>For a moment, Elara thought about deleting the messages and pretending she had never seen them. But curiosity was stronger than fear.</p><p>At exactly midnight, Elara stood in front of the old library.</p><p>The building had been abandoned for years. Its broken windows looked like dark eyes watching from the shadows.</p><p>The door slowly creaked open.</p><p>"Hello?" Elara called out.</p><p>No answer.</p><p>Then...</p><p><em>Tap. Tap. Tap.</em></p><p>Footsteps echoed from the second floor.</p><p>Elara's heart pounded.</p><p>She climbed the dusty stairs and found a single envelope lying on the floor.</p><p>On the front, written in red ink, were the words:</p><p><em>"The truth starts here."</em></p><p>With trembling hands, Elara opened it.</p><p>Inside was an old photograph.</p><p>It showed five teenagers standing together.</p><p>Elara recognized four of them immediately.</p><p>The fifth person's face had been scratched out.</p><p>Suddenly, a voice came from the darkness.</p><p>"You finally came."</p><p>Elara spun around.</p><p>A figure stepped out of the shadows, his face hidden by a black hood.</p><p>"You don't remember me, do you?" the stranger asked.</p><p>Before Elara could answer, the lights in the library went out.</p><p>Everything became silent.</p><p>"You don't remember that night," Roman said quietly. "But I do."</p><p>Before Elara could ask another question, a loud creak echoed somewhere in the library.</p><p>Roman stopped talking.</p><p>Another sound followed.</p><p>A faint thud.</p><p>Elara frowned. "What was that?"</p><p>Roman's expression suddenly changed.</p><p>He looked toward the dark hallway, listening carefully.</p><p>Then...</p><p><em>Tap.</em></p><p>A footstep.</p><p>His eyes widened.</p><p>Without saying a word, he grabbed Elara's hand and pulled her into a small storage room beside the shelves.</p><p>"Roman, what are you doing?" she whispered.</p><p>"Shh," he said, closing the door halfway.</p><p>Another footstep echoed through the library.</p><p>Roman's grip on her hand tightened.</p><p>"I think we're not alone," he whispered.</p><p>Elara's heart began to race.</p><p>"What do you mean?"</p><p>Roman looked toward the crack in the door.</p><p>"I think... there's a third person here."</p><p>Silence.</p><p>Then the sound of footsteps slowly moved closer.</p><p>Neither of them dared to breathe. The footsteps came closer. Roman placed a hand over her mouth.</p><p>"Don't make a sound," he whispered.</p><p>The footsteps stopped right outside the door.</p><p>Silence.</p><p>Elara could hear her own heartbeat.</p><p>A few seconds passed.</p><p>Then the footsteps slowly moved away.</p><p>Roman waited a little longer before taking his hand away.</p><p>"Who was that?" Elara asked softly.</p><p>Roman looked at the dark hallway, his expression unreadable.</p><p>"I don't know," he said quietly.</p><p>He took a deep breath.</p><p>"But this means we're too late."</p><p>"What do you mean?"</p><p>Roman turned to look at her.</p><p>"Someone else is looking for the truth before us."</p><p>Roman slowly pointed toward the old wooden door.</p><p>"Everything started in that room," he said quietly. "And everything ended there too."</p><p>Elara stared at the door, a strange feeling rising in her chest.</p><p>Then she looked at him.</p><p>"I don't know why," she said softly, "but ever since that night... I've hated you."</p><p>Roman's expression froze.</p><p>"When I look at you, my heart feels heavy. I feel angry... and I don't even know the reason."</p><p>Silence filled the hallway.</p><p>"I don't remember what happened," Elara whispered, "but a part of me keeps telling me to stay away from you."</p><p>Roman lowered his eyes.</p><p>A painful smile appeared on his face.</p><p>"I know," he said quietly.</p><p>And somehow... those words hurt more than anything else.</p><p>"I know," Roman said quietly.</p><p>Elara frowned.</p><p>"You know?" she repeated. "Then tell me. Tell me what happened that night."</p><p>Roman looked at her for a long moment.</p><p>"I can't."</p><p>"Why not?" she asked, her voice rising.</p><p>"Because if I tell you now, you'll hate me even more."</p><p>A cold breeze passed through the hallway.</p><p>Elara crossed her arms.</p><p>"I already hate you."</p><p>For a second, something painful flashed in Roman's eyes.</p><p>"That's the problem, Elara," he said softly. "You hate me... but you don't even remember why."</p><p>She looked away.</p><p>For some reason, seeing the hurt in his eyes made her chest ache.</p><p>Roman took a step toward the old door.</p><p>"The answers you're looking for are behind this door."</p><p>Elara looked at it nervously.</p><p>"And if I don't like the truth?"</p><p>Roman's hand stopped on the doorknob.</p><p>He turned back to her.</p><p>"Then you'll understand why I stayed away for three years."</p><p>Silence.</p><p>Neither of them moved.</p><p>Then, slowly, Roman placed his hand on the handle.</p><p>"Are you ready?" he asked.</p><p>Elara took a deep breath and looked at the door.</p><p>She wasn't sure if she wanted her memories back.</p><p>But she nodded anyway.</p>`,
-            contentUr: `<p>ایلارا نے زندگی میں ایک چیز بہت پہلے سیکھ لی تھی: اعتماد خطرناک ہو سکتا ہے۔</p><p>شہر باہر سے خوبصورت لگتا تھا۔ سڑکیں روشنیوں سے بھری ہوئی تھیں، لوگ کیفے میں ہنس رہے تھے، اور بچے پارکوں میں کھیل رہے تھے۔ لیکن ہر مسکراہٹ کے پیچھے، ایک راز ہو سکتا ہے۔</p><p>اس شام جب ایلارا اسکول سے گھر جا رہی تھی، اچانک اس کا فون بجا۔</p><p><em>نامعلوم نمبر: "مجھے معلوم ہے کہ تین سال پہلے کیا ہوا تھا۔"</em></p><p>ایلارا جم گئی۔</p><p>تین سال پہلے کا وقت وہ تھا جسے اس نے کبھی یاد نہ کرنے کا وعدہ کیا تھا۔</p><p>اس کے جواب دینے سے پہلے، ایک اور پیغام آیا۔</p><p><em>نامعلوم نمبر: "اگر تم سچ جاننا چاہتی ہو، آدھی رات کو پرانی لائبریری آؤ۔ اکیلے آؤ۔"</em></p><p>ایلارا کی ریڑھ کی ہڈی میں ٹھنڈک دوڑ گئی۔</p><p>کسی کو اس کا راز معلوم تھا۔</p><p>ایلارا نے اسکرین کو دیکھ
+        const chapters = [];
+
+        // Chapter titles and PDF links
+        const chapterData = [
+            { titleEn: "The Message", titleUr: "پیغام", titleFa: "پیام", pdf: "chapter-1.pdf" },
+            { titleEn: "The Pieces That Never Fit", titleUr: "وہ ٹکڑے جو کبھی نہیں جڑے", titleFa: "تکه‌هایی که هرگز جور نشدند",
+            pdf: "chapter-2.pdf" },
+            { titleEn: "Shadows of Yesterday", titleUr: "کل کے سائے", titleFa: "سایه‌های دیروز", pdf: "chapter-3.pdf" },
+            { titleEn: "The Cost of Power", titleUr: "طاقت کی قیمت", titleFa: "بهای قدرت", pdf: "chapter-4.pdf" },
+            { titleEn: "Echoes in the Dark", titleUr: "اندھیرے میں گونج", titleFa: "پژواک‌ها در تاریکی", pdf: "chapter-5.pdf" },
+            { titleEn: "Old Photographs", titleUr: "پرانی تصاویر", titleFa: "عکس‌های قدیمی", pdf: "chapter-6.pdf" },
+            { titleEn: "The Ring", titleUr: "انگوٹھی", titleFa: "حلقه", pdf: "chapter-7.pdf" },
+            { titleEn: "What He Built", titleUr: "اس نے کیا بنایا", titleFa: "آنچه ساخت", pdf: "chapter-8.pdf" },
+            { titleEn: "You Will Know Soon", titleUr: "تم جلد جانو گے", titleFa: "به زودی خواهی دانست", pdf: "chapter-9.pdf" },
+            { titleEn: "The Same Fragrance", titleUr: "وہی خوشبو", titleFa: "همان عطر", pdf: "chapter-10.pdf" },
+            { titleEn: "The Lie", titleUr: "جھوٹ", titleFa: "دروغ", pdf: "chapter-11.pdf" },
+            { titleEn: "The Things You Were Never Told", titleUr: "وہ باتیں جو تمہیں کبھی نہ بتائی گئیں",
+                titleFa: "چیزهایی که هرگز به تو گفته نشد", pdf: "chapter-12.pdf" },
+            { titleEn: "Questions", titleUr: "سوالات", titleFa: "سوال‌ها", pdf: "chapter-13.pdf" },
+            { titleEn: "The Missing Piece", titleUr: "گمشدہ ٹکڑا", titleFa: "تکه گمشده", pdf: "chapter-14.pdf" },
+            { titleEn: "The First Clue", titleUr: "پہلی علامت", titleFa: "نخستین نشانه", pdf: "chapter-15.pdf" },
+            { titleEn: "The Secret She Never Told", titleUr: "وہ راز جو اس نے کبھی نہ بتایا",
+                titleFa: "رازی که هرگز نگفت", pdf: "chapter-16.pdf" },
+            { titleEn: "The Memory", titleUr: "یاد", titleFa: "خاطره", pdf: "chapter-17.pdf" },
+            { titleEn: "When Everything Fell Apart", titleUr: "جب سب کچھ بکھر گیا", titleFa: "وقتی همه چیز از هم پاشید",
+                pdf: "chapter-18.pdf" },
+            { titleEn: "The Verdict", titleUr: "فیصلہ", titleFa: "رأی", pdf: "chapter-19.pdf" },
+            { titleEn: "One More Chance", titleUr: "ایک اور موقع", titleFa: "یک فرصت دیگر", pdf: "chapter-20.pdf" }
+        ];
+
+        // Story content for each chapter (English)
+        const storyContentEn = [
+            `<p>Elara had learned one thing very early in life: trust could be dangerous.</p><p>The city looked beautiful from the outside. Bright lights filled the streets, people laughed in cafes, and children played in the parks. But behind every smile, there could be a secret.</p><p>As Elara walked home from school that evening, her phone suddenly vibrated.</p><p><em>Unknown Number: "I know what happened three years ago."</em></p><p>Elara froze.</p><p>Three years ago was a time she had promised never to remember again.</p><p>Before she could reply, another message appeared.</p><p><em>Unknown Number: "If you want the truth, come to the old library at midnight. Come alone."</em></p><p>A cold shiver ran down Elara's spine.</p><p>Someone knew her secret.</p><p>Elara stared at the screen, reading the message again and again.</p><p>"I know what happened three years ago."</p><p>Her hands began to shake.</p><p>No one was supposed to know.</p><p>For a moment, Elara thought about deleting the messages and pretending she had never seen them. But curiosity was stronger than fear.</p><p>At exactly midnight, Elara stood in front of the old library.</p><p>The building had been abandoned for years. Its broken windows looked like dark eyes watching from the shadows.</p><p>The door slowly creaked open.</p><p>"Hello?" Elara called out.</p><p>No answer.</p><p>Then...</p><p><em>Tap. Tap. Tap.</em></p><p>Footsteps echoed from the second floor.</p><p>Elara's heart pounded.</p><p>She climbed the dusty stairs and found a single envelope lying on the floor.</p><p>On the front, written in red ink, were the words:</p><p><em>"The truth starts here."</em></p><p>With trembling hands, Elara opened it.</p><p>Inside was an old photograph.</p><p>It showed five teenagers standing together.</p><p>Elara recognized four of them immediately.</p><p>The fifth person's face had been scratched out.</p><p>Suddenly, a voice came from the darkness.</p><p>"You finally came."</p><p>Elara spun around.</p><p>A figure stepped out of the shadows, his face hidden by a black hood.</p><p>"You don't remember me, do you?" the stranger asked.</p><p>Before Elara could answer, the lights in the library went out.</p><p>Everything became silent.</p><p>"You don't remember that night," Roman said quietly. "But I do."</p><p>Before Elara could ask another question, a loud creak echoed somewhere in the library.</p><p>Roman stopped talking.</p><p>Another sound followed.</p><p>A faint thud.</p><p>Elara frowned. "What was that?"</p><p>Roman's expression suddenly changed.</p><p>He looked toward the dark hallway, listening carefully.</p><p>Then...</p><p><em>Tap.</em></p><p>A footstep.</p><p>His eyes widened.</p><p>Without saying a word, he grabbed Elara's hand and pulled her into a small storage room beside the shelves.</p><p>"Roman, what are you doing?" she whispered.</p><p>"Shh," he said, closing the door halfway.</p><p>Another footstep echoed through the library.</p><p>Roman's grip on her hand tightened.</p><p>"I think we're not alone," he whispered.</p><p>Elara's heart began to race.</p><p>"What do you mean?"</p><p>Roman looked toward the crack in the door.</p><p>"I think... there's a third person here."</p><p>Silence.</p><p>Then the sound of footsteps slowly moved closer.</p><p>Neither of them dared to breathe. The footsteps came closer. Roman placed a hand over her mouth.</p><p>"Don't make a sound," he whispered.</p><p>The footsteps stopped right outside the door.</p><p>Silence.</p><p>Elara could hear her own heartbeat.</p><p>A few seconds passed.</p><p>Then the footsteps slowly moved away.</p><p>Roman waited a little longer before taking his hand away.</p><p>"Who was that?" Elara asked softly.</p><p>Roman looked at the dark hallway, his expression unreadable.</p><p>"I don't know," he said quietly.</p><p>He took a deep breath.</p><p>"But this means we're too late."</p><p>"What do you mean?"</p><p>Roman turned to look at her.</p><p>"Someone else is looking for the truth before us."</p><p>Roman slowly pointed toward
